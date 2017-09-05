@@ -1,0 +1,15 @@
+version: '2'
+services:
+    salt: # also used as hostname. this is the default hostname that minions connect to
+        container_name: saltstack-mastertje
+        build: ./saltstack-master
+        networks: [saltnet]
+    janwillem:
+        hostname: janwillem # also becomes minion name
+        build: ./saltstack-minion
+        networks: [saltnet]
+        volumes:
+            - ./saltstack-minion/minion:/etc/salt/minion
+networks:
+    saltnet:
+        driver: bridge
